@@ -1,6 +1,6 @@
 # amigo-social
 
-##Instituto de Informática - Universidade Federal de Goiás - DSDM 2017/1 
+## Instituto de Informática - Universidade Federal de Goiás - DSDM 2017/1 
 
 Repositório destinado ao projeto final da disciplina de Desenvolvimento de Software para Dispositivos Móveis e Ubíquos, ministrada pelo [Professor Marcelo Quinta](mailto:).
 
@@ -28,6 +28,7 @@ Para a implementação do projeto, serão utilizadas tecnologias Android.
 
 ### Proposta do Projeto
 
+Para os membros participantes do projeto que têm permissão, siga para [editar os slides](https://docs.google.com/presentation/d/1vqDU-o2ITFM0AcklvDWSp4cTy3uhS29rPXKjuADo2mw/edit#slide=id.g1120e21370_0_262) solicitados pelo professor.
 
 
 ### Acompanhamento das Atividades do Projeto
