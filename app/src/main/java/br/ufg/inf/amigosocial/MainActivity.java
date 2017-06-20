@@ -1,9 +1,13 @@
 package br.ufg.inf.amigosocial;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Activity responsável por mostrar a tela inicial da aplicação com o menu de navegação
+ * @author Rony Nogueira
+ * @version 1.0
+ */
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
