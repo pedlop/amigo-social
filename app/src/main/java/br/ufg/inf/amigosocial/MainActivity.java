@@ -23,21 +23,26 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import br.ufg.inf.amigosocial.adapters.FragmentViewPagerAdapter;
+import br.ufg.inf.amigosocial.fragments.FavoritosFragment;
+import br.ufg.inf.amigosocial.fragments.InicioFragment;
+import br.ufg.inf.amigosocial.fragments.NoticiasFragment;
+
+public class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
 
     //private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BaseActivity baseActivity = new BaseActivity();
+        mToolbar = (Toolbar) findViewById(R.id.app_toolbar);
 
-        /*toolbar = (Toolbar) findViewById(R.id.tabs);
-        setSupportActionBar(toolbar);*/
+        setSupportActionBar(mToolbar);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -45,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
          * Inicializando a viewpager com os fragmentos
          * newInstance('Texto dentro da tab'), 'Texto embaixo do Icone')
          */
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(MyFragment.newInstance("Favoritos Fragment"), "");
-        adapter.addFragment(MyFragment.newInstance("Início Fragment"), "");
-        adapter.addFragment(MyFragment.newInstance("Notícias Fragment"), "");
+        FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FavoritosFragment());
+        adapter.addFragment(new InicioFragment());
+        adapter.addFragment(new NoticiasFragment());
         viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -62,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
          */
 
         tabLayout.getTabAt(0).setIcon(R.mipmap.ic_favoritos);
-        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_inicial);
+        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_inicial).select();
         tabLayout.getTabAt(2).setIcon(R.mipmap.ic_noticias);
+
+        tabLayout.addOnTabSelectedListener(this);
 
         /**
          * Para personalizar o layout da tab, colocando a imagem em cima do texto.
@@ -73,35 +80,6 @@ public class MainActivity extends AppCompatActivity {
         //tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_home_selector, 0, 0);
         //tabLayout.getTabAt(0).setCustomView(tabOne);
 
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<MyFragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(MyFragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
     }
 
     @Override
@@ -124,5 +102,33 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        String titulo = "";
+        switch (tab.getPosition()) {
+            case 0:
+                titulo = getString(R.string.favoritos);
+                break;
+            case 1:
+                titulo = getString(R.string.inicio);
+                break;
+            case 2:
+                titulo = getString(R.string.noticias);
+                break;
+
+        }
+        mToolbar.setTitle(titulo);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }
