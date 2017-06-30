@@ -20,7 +20,7 @@ import okhttp3.Response;
 
 public abstract class Conexao {
 
-    private static final String API_URL = "API_ENDPOINT_URL";
+    private static final String API_URL = "https://private-38cccd-amigosocial.apiary-mock.com/";
     protected static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private String servicoUrl;
 
@@ -28,9 +28,8 @@ public abstract class Conexao {
         this.servicoUrl = API_URL + servico;
     }
 
-    public void requisicao() {
+    public void postRequisicao() {
         OkHttpClient cliente = new OkHttpClient();
-
         RequestBody parametros = RequestBody.create(JSON, getParametros());
         Request requisicao = new Request.Builder()
                 .url(this.servicoUrl)
@@ -49,7 +48,25 @@ public abstract class Conexao {
             }
         });
     }
+    public void getRequisicao() {
+        OkHttpClient cliente = new OkHttpClient();
+        Request requisicao = new Request.Builder()
+                .url(this.servicoUrl)
+                .get()
+                .build();
 
+        cliente.newCall(requisicao).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call chamada, IOException erro) {
+                EventBus.getDefault().post(new Exception("Verifique sua conexÃ£o"));
+            }
+
+            @Override
+            public void onResponse(Call chamada, Response resposta) throws IOException {
+                parseResposta(resposta);
+            }
+        });
+    }
     abstract String getParametros();
     abstract void parseResposta(Response resposta);
 
