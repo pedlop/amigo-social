@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="inicio_titulo" type="id">Testando</item>
+    <item name="inicio_resumo" type="id">Este é o teste para as publicações dos Serviços Sociais</item>
+    <item name="inicio_data" type="id">30/06/2017</item>
+    <item name="inicio_imagem" type="id"></item>
+</resources>

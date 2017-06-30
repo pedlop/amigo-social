@@ -3,4 +3,14 @@
     <string name="favoritos">Favoritos</string>
     <string name="noticias">Notícias</string>
     <string name="inicio">Início</string>
+    <string name="configuracoes">Configurações</string>
+    <string name="hello_blank_fragment">Hello World</string>
+    <string name="title">Homem-Aranha: De Volta ao Lar</string>
+    <string name="description">Depois de atuar ao lado dos Vingadores, chegou a hora do pequeno Peter
+        Parker voltar para casa e para a sua vida, já não mais tão normal. Lutando diariamente contra
+        pequenos crimes nas redondezas, ele pensa ter encontrado a missão de sua vida quando o terrível
+        vilão Abutre surge amedrontando a cidade. O problema é que a tarefa não será tão fácil como ele
+        imaginava.
+    </string>
+    <string name="subtitle">A jornada do Aranha começa!</string>
 </resources>

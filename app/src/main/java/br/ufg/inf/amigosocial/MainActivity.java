@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         /**
          * Inicializando a viewpager com os fragmentos
-         * newInstance('Texto dentro da tab'), 'Texto embaixo do Icone')
          */
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FavoritosFragment());
@@ -71,14 +70,6 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
         tabLayout.getTabAt(2).setIcon(R.mipmap.ic_noticias);
 
         tabLayout.addOnTabSelectedListener(this);
-
-        /**
-         * Para personalizar o layout da tab, colocando a imagem em cima do texto.
-         */
-        //TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tabview, null);
-        //tabOne.setText("Home Fragment");
-        //tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_home_selector, 0, 0);
-        //tabLayout.getTabAt(0).setCustomView(tabOne);
 
     }
 
