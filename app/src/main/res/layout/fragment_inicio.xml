@@ -4,10 +4,6 @@
     android:layout_height="match_parent"
     tools:context="br.ufg.inf.amigosocial.fragments.InicioFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/inicio" />
+    <include layout="@layout/recycler_view"/>
 
 </FrameLayout>

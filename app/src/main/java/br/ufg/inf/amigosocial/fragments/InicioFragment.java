@@ -26,31 +26,31 @@ import br.ufg.inf.amigosocial.dominio.Postagem;
  */
 public class InicioFragment extends BaseFragment {
 
-    private RecyclerView mListaPostagens;
+    /*private RecyclerView mListaPostagens;
     private RecyclerView.LayoutManager mLayoutManager;
 
     public InicioFragment() {
         super();
         EventBus.getDefault().register(this);
-    }
+    }*/
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_inicio, container, false);
+        View view = inflater.inflate(R.layout.card_postagem, container, false);
 
-        mListaPostagens = (RecyclerView) view.findViewById(R.id.recycler_list);
+        /*mListaPostagens = (RecyclerView) view.findViewById(R.id.recycler_list);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mListaPostagens.setLayoutManager(mLayoutManager);
 
-        this.getPostagens();
+        this.getPostagens();*/
 
         return view;
     }
 
-    private void getPostagens() {
+    /*private void getPostagens() {
         WebPostagens webPostagens = new WebPostagens("postagem");
         webPostagens.getRequisicao();
     }
@@ -68,6 +68,6 @@ public class InicioFragment extends BaseFragment {
         } else {
             mListaPostagens.setVisibility(View.INVISIBLE);
         }
-    }
+    }*/
 
 }
