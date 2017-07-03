@@ -17,49 +17,57 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 import br.ufg.inf.amigosocial.R;
-import br.ufg.inf.amigosocial.adapters.InicioListAdapter;
-import br.ufg.inf.amigosocial.dominio.Inicio;
+import br.ufg.inf.amigosocial.adapters.PostagemListAdapter;
+import br.ufg.inf.amigosocial.conexao.WebPostagens;
+import br.ufg.inf.amigosocial.dominio.Postagem;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class InicioFragment extends BaseFragment {
 
-    /*private RecyclerView mListaPublicacoes;
+    private RecyclerView mListaPostagens;
     private RecyclerView.LayoutManager mLayoutManager;
 
     public InicioFragment() {
         super();
         EventBus.getDefault().register(this);
-    }*/
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.card_inicio, container, false);
+        View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        /*mListaPublicacoes = (RecyclerView) view.findViewById(R.id.recycler_list);
+        mListaPostagens = (RecyclerView) view.findViewById(R.id.recycler_list);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mListaPublicacoes.setLayoutManager(mLayoutManager);*/
+        mListaPostagens.setLayoutManager(mLayoutManager);
+
+        this.getPostagens();
 
         return view;
     }
 
-    /*@Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(ArrayList<Inicio> publicacoes) {
-        Log.d(this.getClass().getSimpleName(),publicacoes.size() + "");
-        this.setPublicacoes(publicacoes);
+    private void getPostagens() {
+        WebPostagens webPostagens = new WebPostagens("postagem");
+        webPostagens.getRequisicao();
     }
 
-    private void setPublicacoes(ArrayList<Inicio> publicacoes){
-        if (publicacoes.size() > 0) {
-            InicioListAdapter adapter = new InicioListAdapter(getActivity(), publicacoes);
-            mListaPublicacoes.setAdapter(adapter);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ArrayList<Postagem> postagens) {
+        Log.d(this.getClass().getSimpleName(),postagens.size() + "");
+        this.setPostagens(postagens);
+    }
+
+    private void setPostagens(ArrayList<Postagem> postagens){
+        if (postagens.size() > 0) {
+            PostagemListAdapter adapter = new PostagemListAdapter(getActivity(), postagens);
+            mListaPostagens.setAdapter(adapter);
         } else {
-            mListaPublicacoes.setVisibility(View.INVISIBLE);
+            mListaPostagens.setVisibility(View.INVISIBLE);
         }
-    }*/
+    }
 
 }

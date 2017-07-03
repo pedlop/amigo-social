@@ -15,7 +15,7 @@ import android.view.MenuItem;
  * Activity responsável por mostrar a tela inicial da aplicação com o menu de navegação
  * Mostrar a tela raiz com as tabs
  * @author Rony Nogueira
- * @author Pedro Victor
+ * @author Pedro Victor - github.com/pedlop
  * @version 1.0
  */
 
