@@ -13,4 +13,7 @@
         imaginava.
     </string>
     <string name="subtitle">A jornada do Aranha começa!</string>
+    <string name="sem_conexao_titulo">Sem acesso a internet</string>
+    <string name="sem_conexao_mensagem">Por favor, verifique sua conexão com a internet e tente novamente.</string>
+    <string name="tentar_novamente">Tentar Novamente</string>
 </resources>

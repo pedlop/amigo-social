@@ -1,9 +1,12 @@
 package br.ufg.inf.amigosocial.conexao;
 
+import android.util.Log;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
+import br.ufg.inf.amigosocial.exception.SemConexaoException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -39,7 +42,7 @@ public abstract class Conexao {
         cliente.newCall(requisicao).enqueue(new Callback() {
             @Override
             public void onFailure(Call chamada, IOException erro) {
-                EventBus.getDefault().post(new Exception("Verifique sua conexÃ£o"));
+                EventBus.getDefault().post(new SemConexaoException("Verifique sua conexão"));
             }
 
             @Override
@@ -58,7 +61,7 @@ public abstract class Conexao {
         cliente.newCall(requisicao).enqueue(new Callback() {
             @Override
             public void onFailure(Call chamada, IOException erro) {
-                EventBus.getDefault().post(new Exception("Verifique sua conexÃ£o"));
+                EventBus.getDefault().post(new SemConexaoException("Verifique sua conexão"));
             }
 
             @Override
