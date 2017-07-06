@@ -16,4 +16,6 @@
     <string name="sem_conexao_titulo">Sem acesso a internet</string>
     <string name="sem_conexao_mensagem">Por favor, verifique sua conexão com a internet e tente novamente.</string>
     <string name="tentar_novamente">Tentar Novamente</string>
+    <string name="title_activity_detalhe_postagem">DetalhePostagemActivity</string>
+    <string name="erro_carregar_detalhe_postagem">Não foi possível abrir os detalhes da postagem</string>
 </resources>
