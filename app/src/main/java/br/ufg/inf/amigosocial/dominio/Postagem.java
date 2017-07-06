@@ -2,13 +2,15 @@ package br.ufg.inf.amigosocial.dominio;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * @author Pedro Victor - github.com/pedlop
  * @version 1.0
  * Created on 30/06/2017.
  */
 
-public class Postagem {
+public class Postagem implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("titulo")

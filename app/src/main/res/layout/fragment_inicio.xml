@@ -2,8 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/frame_postagens"
     tools:context="br.ufg.inf.amigosocial.fragments.InicioFragment">
-
-    <include layout="@layout/recycler_view"/>
+    <LinearLayout
+        android:id="@+id/postagens_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/recycler_view"/>
+    </LinearLayout>
+    <include layout="@layout/sem_conexao"/>
 
 </FrameLayout>

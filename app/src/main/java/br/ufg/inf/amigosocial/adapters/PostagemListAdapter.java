@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.inf.amigosocial.R;
@@ -27,7 +26,7 @@ public class PostagemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<Postagem> listaPostagens;
     private Context context;
 
-    public PostagemListAdapter(Context context, ArrayList<Postagem> listaPostagens) {
+    public PostagemListAdapter(Context context, List<Postagem> listaPostagens) {
         this.context = context;
         this.listaPostagens = listaPostagens;
     }

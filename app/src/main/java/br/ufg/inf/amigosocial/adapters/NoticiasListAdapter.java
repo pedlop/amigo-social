@@ -38,16 +38,20 @@ public class NoticiasListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        NoticiaViewHolder noticiaViewHolder = (NoticiaViewHolder) holder;
-        Noticia noticia = listaNoticias.get(position);
-        noticiaViewHolder.getTitulo().setText(noticia.getTitulo());
-        noticiaViewHolder.getResumo().setText(noticia.getResumo());
-        noticiaViewHolder.getData().setText(noticia.getData());
-        if (noticia.getImagem() != null) {
-            Log.d("TAG",noticia.getImagem()+"");
-            Picasso.with(this.context).load(noticia.getImagem()).error(R.mipmap.ic_launcher).into(noticiaViewHolder.getImagem());
-        } else {
-            noticiaViewHolder.getImagem().setVisibility(View.GONE);
+        try {
+            NoticiaViewHolder noticiaViewHolder = (NoticiaViewHolder) holder;
+            Noticia noticia = listaNoticias.get(position);
+            noticiaViewHolder.getTitulo().setText(noticia.getTitulo());
+            noticiaViewHolder.getResumo().setText(noticia.getResumo());
+            noticiaViewHolder.getData().setText(noticia.getData());
+            if (noticia.getImagem() != null) {
+                Log.d("TAG",noticia.getImagem()+"");
+                Picasso.with(this.context).load(noticia.getImagem()).error(R.mipmap.ic_launcher).into(noticiaViewHolder.getImagem());
+            } else {
+                noticiaViewHolder.getImagem().setVisibility(View.GONE);
+            }
+        } catch (ClassCastException e) {
+
         }
     }
 

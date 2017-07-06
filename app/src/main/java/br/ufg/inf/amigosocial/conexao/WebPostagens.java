@@ -7,8 +7,12 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import br.ufg.inf.amigosocial.dominio.Postagem;
+import br.ufg.inf.amigosocial.dominio.Postagens;
+import br.ufg.inf.amigosocial.util.AppConstantes;
 import okhttp3.Response;
 
 /**
@@ -35,12 +39,15 @@ public class WebPostagens extends Conexao {
         try {
             String json = resposta.body().string();
             Gson gson = new GsonBuilder().create();
-            Postagem[] postagens = gson.fromJson(json, Postagem[].class);
-            ArrayList<Postagem> listaPostagens = new ArrayList<>(postagens.length);
-            for (Postagem postagem : postagens) {
-                listaPostagens.add(postagem);
-            }
-            EventBus.getDefault().post(listaPostagens);
+
+            Postagem[] postagensLista = gson.fromJson(json, Postagem[].class);
+
+            List<Postagem> postagens = new ArrayList<>(postagensLista.length);
+            Collections.addAll(postagens, postagensLista);
+
+            EventBus.getDefault().post(new Postagens(postagens));
+            EventBus.getDefault().post(AppConstantes.POSTAGENS_CARREGAMENTO_COMPLETO);
+
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
