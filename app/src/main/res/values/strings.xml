@@ -18,4 +18,7 @@
     <string name="tentar_novamente">Tentar Novamente</string>
     <string name="title_activity_detalhe_postagem">DetalhePostagemActivity</string>
     <string name="erro_carregar_detalhe_postagem">Não foi possível abrir os detalhes da postagem</string>
+    <string name="text_notificacoes">Notificações</string>
+    <string name="text_hab_notificacoes">Habilitar Notificações</string>
+    <string name="text_hab_noticias">Habilitar Notícias</string>
 </resources>

@@ -22,7 +22,7 @@
         <activity
             android:name=".DetalhePostagemActivity"
             android:label="@string/title_activity_detalhe_postagem"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

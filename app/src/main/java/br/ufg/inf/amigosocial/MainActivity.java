@@ -1,5 +1,6 @@
 package br.ufg.inf.amigosocial;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -89,6 +90,10 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent intent = new Intent(this, ConfiguracoesActivity.class);
+            startActivity(intent);
+
             return true;
         }
 
