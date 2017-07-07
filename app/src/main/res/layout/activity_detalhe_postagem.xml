@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context="br.ufg.inf.amigosocial.DetalhePostagemActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="89dp"
+        android:layout_height="84dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="false"
+        app:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@mipmap/ic_mapa" />
+
+    <include layout="@layout/content_detalhe_postagem"
+        android:id="@+id/include" />
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,16 +31,27 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+        <ImageView
+            android:id="@+id/postagem_imagem"
+            android:layout_width="wrap_content"
+            android:layout_height="222dp"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/spider" />
+
+        <TextView
+            android:id="@+id/postagem_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/postagem_descricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp" />
+
     </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_detalhe_postagem" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>

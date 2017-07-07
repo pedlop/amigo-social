@@ -42,15 +42,16 @@ public class PostagemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         PostagemViewHolder postagemViewHolder = (PostagemViewHolder) holder;
         Postagem postagem = listaPostagens.get(position);
         postagemViewHolder.getTitulo().setText(postagem.getTitulo());
-        //postagemViewHolder.getNomeInstituicao().setText(postagem.getLegenda());
+
+        if (postagem.getMidia().getArquivo() != null) {
+            Log.d("TAG", postagem.getMidia().getArquivo() + " VAZIA ");
+            Picasso.with(this.context).load(postagem.getMidia().getArquivo()).error(R.mipmap.ic_launcher).into(postagemViewHolder.getImagem());
+        } else {
+        postagemViewHolder.getImagem().setVisibility(View.GONE);
+        }
+        postagemViewHolder.getNomeInstituicao().setText(postagem.getInstituicao().getNome());
         postagemViewHolder.getDescricao().setText(postagem.getDescricao());
         postagemViewHolder.getData().setText(postagem.getData());
-        /*if (postagem.getImagem() != null) {
-            Log.d("TAG", postagem.getImagem()+"");
-            Picasso.with(this.context).load(postagem.getImagem()).error(R.mipmap.ic_launcher).into(postagemViewHolder.getImagem());
-        } else {
-            postagemViewHolder.getImagem().setVisibility(View.GONE);
-        }*/
     }
 
     @Override

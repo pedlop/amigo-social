@@ -21,10 +21,10 @@ public class PostagemViewHolder extends RecyclerView.ViewHolder {
     public PostagemViewHolder(View view) {
         super(view);
         this.titulo = (TextView) view.findViewById(R.id.postagem_titulo);
-        //this.nomeInstituicao = (TextView) view.findViewById(R.id.postagem_intituicao_nome);
+        this.nomeInstituicao = (TextView) view.findViewById(R.id.postagem_legenda);
         this.descricao = (TextView) view.findViewById(R.id.postagem_descricao);
-        this.data = (TextView) view.findViewById(R.id.postagem_legenda);
-        //this.imagem = (ImageView) view.findViewById(R.id.postagem_imagem);
+        this.data = (TextView) view.findViewById(R.id.postagem_data);
+        this.imagem = (ImageView) view.findViewById(R.id.postagem_imagem);
     }
 
     public TextView getTitulo() {
