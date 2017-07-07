@@ -15,6 +15,10 @@ public class Postagem implements Serializable {
     private int id;
     @SerializedName("titulo")
     private String titulo;
+    @SerializedName("descricao")
+    private String descricao;
+    @SerializedName("como_ajudar")
+    private String comoAjudar;
     @SerializedName("cidade_id")
     private int cidadeID;
     @SerializedName("instituicao_id")
@@ -23,16 +27,14 @@ public class Postagem implements Serializable {
     private double institutoLatitude;
     @SerializedName("longitude")
     private double institutoLongitude;
-    @SerializedName("descricao")
-    private String descricao;
     @SerializedName("updated_at")
     private String data;
     @SerializedName("midia")
-    public Midia midia;
+    private Midia midia;
     @SerializedName("instituicao")
-    public Instituicao instituicao;
+    private Instituicao instituicao;
 
-    public Postagem() {}
+    Postagem() {}
 
     public int getId() {
         return id;
@@ -113,4 +115,23 @@ public class Postagem implements Serializable {
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
     }
+
+
+    public void setInstitutoLatitude(double institutoLatitude) {
+        this.institutoLatitude = institutoLatitude;
+    }
+
+    public String getComoAjudar() {
+        return comoAjudar;
+    }
+
+    public void setComoAjudar(String comoAjudar) {
+        this.comoAjudar = comoAjudar;
+    }
+
+    public void setInstitutoLongitude(double institutoLongitude) {
+        this.institutoLongitude = institutoLongitude;
+
+    }
+
 }
