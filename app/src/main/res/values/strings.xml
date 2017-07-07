@@ -19,7 +19,12 @@
     <string name="title_activity_detalhe_postagem">DetalhePostagemActivity</string>
     <string name="erro_carregar_detalhe_postagem">Não foi possível abrir os detalhes da postagem</string>
     <string name="text_notificacoes">Notificações</string>
-    <string name="text_hab_notificacoes">Habilitar Notificações</string>
+    <string name="text_hab_notificacoes">Permitir Notificações</string>
     <string name="text_hab_noticias">Habilitar Notícias</string>
+    <string name="text_confg_not_sobr">Notícias Sobre</string>
+    <string name="text_confg_edc">Educação</string>
+    <string name="text_confg_proj_soc">Projetos Sociais</string>
+    <string name="text_confg_bra">Brasil</string>
+    <string name="text_confg_notif">Notificações</string>
     <string name="data">TextView</string>
 </resources>
