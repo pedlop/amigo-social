@@ -6,17 +6,48 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="br.ufg.inf.amigosocial.ConfiguracoesActivity">
+    <include layout="@layout/top_toolbar"/>
+
+    <TextView
+        android:id="@+id/text_noticias_confg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_confg_not_sobr"
+        android:textSize="24sp" />
+
+    <CheckBox
+        android:id="@+id/check_box_noticias_edc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_confg_edc"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/check_box_noticias_proj_soc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_confg_proj_soc"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/check_box_noticias_bra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_confg_bra"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/text_notificacoes_confg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_confg_notif"
+        android:textSize="24sp" />
 
     <CheckBox
         android:id="@+id/check_box_notificacoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_hab_notificacoes" />
-
-    <CheckBox
-        android:id="@+id/check_box_noticias"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_hab_noticias" />
+        android:text="@string/text_hab_notificacoes"
+        android:textSize="18sp" />
 
 </LinearLayout>
