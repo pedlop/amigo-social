@@ -13,6 +13,8 @@ public class Instituicao extends Postagem {
     private String cnpj;
     @SerializedName("nome")
     private String nome;
+    @SerializedName("endereco")
+    private String endereco;
 
     public Instituicao() {}
 
@@ -32,4 +34,11 @@ public class Instituicao extends Postagem {
         this.nome = nome;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 }
