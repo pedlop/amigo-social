@@ -38,16 +38,9 @@ public class WebNoticias extends Conexao {
     void parseResposta(Response resposta) {
 
         try {
-            String json = resposta.body().string();
-            Gson gson = new GsonBuilder().create();
-
-            Noticia[] parseNoticias = gson.fromJson(json, Noticia[].class);
-
-            ArrayList<Noticia> noticias = new ArrayList<>(parseNoticias.length);
-
-            Collections.addAll(noticias, parseNoticias);
-
-            EventBus.getDefault().post(new Noticias(noticias));
+            EventBus.getDefault().post(new Noticias(
+                Conexao.<Noticia>parseRespostaList(resposta, Noticia[].class)
+            ));
             EventBus.getDefault().post(AppConstantes.NOTICIAS_CARREGAMENTO_COMPLETO);
 
         } catch (IOException | NullPointerException | IllegalStateException e) {

@@ -2,9 +2,13 @@ package br.ufg.inf.amigosocial.conexao;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import br.ufg.inf.amigosocial.exception.SemConexaoException;
 import okhttp3.Call;
@@ -18,6 +22,7 @@ import okhttp3.Response;
 /**
  * Responsável por realizar conexões a serviços externos utilizando protocolo HTTP(S)
  * @author Rony Nogueira
+ * @author gabriel
  * @version 1.0
  */
 
@@ -72,5 +77,27 @@ public abstract class Conexao {
     }
     abstract String getParametros();
     abstract void parseResposta(Response resposta);
+
+
+    /**
+     * @param resposta - Response para retirar o body e realizar o parse.
+     */
+    static <T> T parseRespostaObject(Response resposta, Class<T> clazz) throws IOException {
+        String json = resposta.body().string();
+        Gson gson = new GsonBuilder().create();
+
+        return gson.fromJson(json, clazz);
+    }
+
+    /**
+     * @param resposta - Response para retirar o body e realizar o parse.
+     */
+    static <T> List<T> parseRespostaList(Response resposta, Class<T[]> clazz) throws IOException {
+        String json = resposta.body().string();
+        Gson gson = new GsonBuilder().create();
+
+        T[] array =  gson.fromJson(json, clazz);
+        return Arrays.asList(array);
+    }
 
 }

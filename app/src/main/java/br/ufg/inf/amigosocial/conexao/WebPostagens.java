@@ -37,15 +37,9 @@ public class WebPostagens extends Conexao {
     @Override
     void parseResposta(Response resposta) {
         try {
-            String json = resposta.body().string();
-            Gson gson = new GsonBuilder().create();
-
-            Postagem[] postagensLista = gson.fromJson(json, Postagem[].class);
-
-            List<Postagem> postagens = new ArrayList<>(postagensLista.length);
-            Collections.addAll(postagens, postagensLista);
-
-            EventBus.getDefault().post(new Postagens(postagens));
+            EventBus.getDefault().post(new Postagens(
+                    Conexao.<Postagem>parseRespostaList(resposta, Postagem[].class)
+            ));
             EventBus.getDefault().post(AppConstantes.POSTAGENS_CARREGAMENTO_COMPLETO);
 
         } catch (IOException | NullPointerException e) {
