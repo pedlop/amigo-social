@@ -27,7 +27,4 @@
     <string name="text_confg_bra">Brasil</string>
     <string name="text_confg_notif">Notificações</string>
     <string name="data">TextView</string>
-    <string name="texto_como_ajudar">Como Ajudar</string>
-    <string name="texto_instituicao">Instituição</string>
-    <string name="texto_localizacao_nao_encontrada">Localização não encontrada</string>
 </resources>

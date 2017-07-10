@@ -1,8 +1,6 @@
 package br.ufg.inf.amigosocial.fragments;
 
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -29,7 +27,6 @@ import br.ufg.inf.amigosocial.dominio.Noticia;
 import br.ufg.inf.amigosocial.dominio.Noticias;
 import br.ufg.inf.amigosocial.exception.SemConexaoException;
 import br.ufg.inf.amigosocial.util.AppConstantes;
-import br.ufg.inf.amigosocial.util.RecyclerViewItemClickListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +73,6 @@ public class NoticiasFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(SemConexaoException exception) {
         mSemConexaoLayout.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.GONE);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -86,21 +82,10 @@ public class NoticiasFragment extends BaseFragment {
         }
     }
 
-    private void setNoticias(final List<Noticia> noticias){
+    private void setNoticias(List<Noticia> noticias){
         if (noticias.size() > 0) {
             NoticiasListAdapter adapter = new NoticiasListAdapter(getActivity(), noticias);
             mListaNoticias.setAdapter(adapter);
-
-            mListaNoticias.addOnItemTouchListener(new RecyclerViewItemClickListener(getActivity(), new RecyclerViewItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    String link = noticias.get(position).getLink();
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(link));
-                    startActivity(intent);
-                }
-            }));
-
         } else {
             mListaNoticias.setVisibility(View.INVISIBLE);
         }
