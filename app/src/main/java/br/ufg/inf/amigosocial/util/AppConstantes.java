@@ -8,7 +8,7 @@ public enum AppConstantes {
 
     NOTICIAS_CARREGAMENTO_COMPLETO("noticias_carregamento_completo"),
     POSTAGENS_CARREGAMENTO_COMPLETO("postagens_carregamento_completo"),
-
+    FAVORITOS_CARREGAMENTO_COMPLETO("favoritos_carragamento_completo"),
     /**
      * CHAVE DA OPÇÃO DE NOTÍCIAS SOBRE EDUCAÇÃO.
      */

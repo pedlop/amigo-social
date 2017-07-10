@@ -23,7 +23,7 @@ import okhttp3.Response;
  * Responsável por realizar conexões a serviços externos utilizando protocolo HTTP(S)
  * @author Rony Nogueira
  * @author gabriel
- * @version 1.0
+./ * @version 1.0
  */
 
 public abstract class Conexao {
