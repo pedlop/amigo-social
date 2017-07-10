@@ -13,4 +13,8 @@ public class Favoritos {
     public Favoritos(List<Favorito> listaFavorito) {
         this.listaFavorito = listaFavorito;
     }
+
+    public List<Favorito> getListaFavorito() {
+        return listaFavorito;
+    }
 }
