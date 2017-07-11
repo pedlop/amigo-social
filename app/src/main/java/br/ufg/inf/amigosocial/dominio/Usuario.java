@@ -26,10 +26,10 @@ public class Usuario {
     private int instituicaoId;
 
     @SerializedName("created_at")
-    private Date dateCreated;
+    private String dateCreated;
 
     @SerializedName("updated_at")
-    private Date dateUpdate;
+    private String dateUpdate;
 
     public int getId() {
         return id;
@@ -71,19 +71,19 @@ public class Usuario {
         this.instituicaoId = instituicaoId;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateUpdate() {
+    public String getDateUpdate() {
         return dateUpdate;
     }
 
-    public void setDateUpdate(Date dateUpdate) {
+    public void setDateUpdate(String dateUpdate) {
         this.dateUpdate = dateUpdate;
     }
 }

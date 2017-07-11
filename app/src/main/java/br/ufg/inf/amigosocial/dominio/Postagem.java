@@ -27,7 +27,7 @@ public class Postagem implements Serializable {
     private double institutoLatitude;
     @SerializedName("longitude")
     private double institutoLongitude;
-    @SerializedName("updated_at")
+    @SerializedName("upStringd_at")
     private String data;
     @SerializedName("midia")
     private Midia midia;

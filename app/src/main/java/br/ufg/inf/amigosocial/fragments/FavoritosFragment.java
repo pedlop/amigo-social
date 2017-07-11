@@ -56,8 +56,8 @@ public class FavoritosFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_favoritos, container, false);
-        this.getFavoritos();
         this.initComponentes(view);
+        this.getFavoritos();
         return view;
     }
 

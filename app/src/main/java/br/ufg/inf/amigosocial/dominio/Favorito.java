@@ -2,7 +2,6 @@ package br.ufg.inf.amigosocial.dominio;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 
 /**
  * @author gabriel
@@ -20,13 +19,13 @@ public class Favorito {
     private int postagemId;
 
     @SerializedName("deleted_at")
-    private Date dateDelete;
+    private String dateDelete;
 
     @SerializedName("created_at")
-    private Date dateCreated;
+    private String dateCreated;
 
     @SerializedName("updated_at")
-    private Date dateUpdate;
+    private String dateUpdate;
 
     @SerializedName("postagem")
     private Postagem postagem;
@@ -61,27 +60,27 @@ public class Favorito {
         this.postagemId = postagemId;
     }
 
-    public Date getDateDelete() {
+    public String getdateDelete() {
         return dateDelete;
     }
 
-    public void setDateDelete(Date dateDelete) {
+    public void setdateDelete(String dateDelete) {
         this.dateDelete = dateDelete;
     }
 
-    public Date getDateCreated() {
+    public String getdateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setdateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateUpdate() {
+    public String getdateUpdate() {
         return dateUpdate;
     }
 
-    public void setDateUpdate(Date dateUpdate) {
+    public void setdateUpdate(String dateUpdate) {
         this.dateUpdate = dateUpdate;
     }
 
