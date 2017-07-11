@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -87,6 +88,12 @@ public class DetalhePostagemActivity extends BaseActivity {
         instituicaoCnpj.setText(postagem.getInstituicao().getCnpj());
         instituicaoDescricao.setText(postagem.getInstituicao().getDescricao());
         instituicaoEndereco.setText(postagem.getInstituicao().getEndereco());
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Preenche a opcao favorito; Aqui adiciona itens à barra de ação se estiver presente.
+        getMenuInflater().inflate(R.menu.favorito_option, menu);
+        return true;
     }
 
 }
