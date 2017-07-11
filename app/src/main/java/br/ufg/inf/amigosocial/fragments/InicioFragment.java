@@ -18,16 +18,18 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
 import java.util.List;
 
 import br.ufg.inf.amigosocial.DetalhePostagemActivity;
 import br.ufg.inf.amigosocial.R;
 import br.ufg.inf.amigosocial.adapters.PostagemListAdapter;
-import br.ufg.inf.amigosocial.conexao.WebPostagens;
+import br.ufg.inf.amigosocial.conexao.Conexao;
 import br.ufg.inf.amigosocial.dominio.Postagem;
 import br.ufg.inf.amigosocial.dominio.Postagens;
 import br.ufg.inf.amigosocial.util.AppConstantes;
 import br.ufg.inf.amigosocial.util.RecyclerViewItemClickListener;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,8 +64,19 @@ public class InicioFragment extends BaseFragment {
     }
 
     private void getPostagens() {
-        WebPostagens webPostagens = new WebPostagens("postagem");
-        webPostagens.getRequisicao();
+        Conexao.get("postagem", new Conexao.ParserResonse() {
+            @Override
+            public void parse(Response r) {
+                try {
+                    EventBus.getDefault().post(new Postagens(
+                            Conexao.<Postagem>parseRespostaList(r, Postagem[].class)
+                    ));
+                    EventBus.getDefault().post(AppConstantes.POSTAGENS_CARREGAMENTO_COMPLETO);
+                } catch (IOException | NullPointerException | IllegalStateException e) {
+                    Log.d("POSTAGENS_SERVICE", e.getMessage() + "\n");
+                }
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

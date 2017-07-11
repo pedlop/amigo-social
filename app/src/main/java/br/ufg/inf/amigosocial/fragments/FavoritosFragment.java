@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,17 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
 import java.util.List;
 
 import br.ufg.inf.amigosocial.R;
 import br.ufg.inf.amigosocial.adapters.FavoritoListAdapter;
-import br.ufg.inf.amigosocial.conexao.WebFavoritos;
+import br.ufg.inf.amigosocial.conexao.Conexao;
 import br.ufg.inf.amigosocial.dominio.Favorito;
 import br.ufg.inf.amigosocial.dominio.Favoritos;
-import br.ufg.inf.amigosocial.dominio.Noticias;
 import br.ufg.inf.amigosocial.exception.SemConexaoException;
 import br.ufg.inf.amigosocial.util.AppConstantes;
+import okhttp3.Response;
 
 /**
  * @author gabriel
@@ -89,8 +91,19 @@ public class FavoritosFragment extends BaseFragment {
 
     private void getFavoritos() {
         mProgressBar.setVisibility(View.VISIBLE);
-        WebFavoritos webFavoritos = new WebFavoritos();
-        webFavoritos.getRequisicao();
+        Conexao.get("favoritos", new Conexao.ParserResonse() {
+            @Override
+            public void parse(Response r) {
+                try {
+                    EventBus.getDefault().post(new Favoritos(
+                            Conexao.<Favorito>parseRespostaList(r, Favorito[].class)
+                    ));
+                    EventBus.getDefault().post(AppConstantes.FAVORITOS_CARREGAMENTO_COMPLETO);
+                } catch (IOException | NullPointerException | IllegalStateException e) {
+                    Log.d("FAVORITOS_SERVICE", e.getMessage() + "\n");
+                }
+            }
+        });
     }
 
     private void initComponentes(View view) {

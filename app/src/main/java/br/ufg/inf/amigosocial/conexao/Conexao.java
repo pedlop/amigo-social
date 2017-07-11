@@ -23,66 +23,62 @@ import okhttp3.Response;
  * Responsável por realizar conexões a serviços externos utilizando protocolo HTTP(S)
  * @author Rony Nogueira
  * @author gabriel
-./ * @version 1.0
- */
-
+.* @version 1.0
+*/
 public abstract class Conexao {
 
+    /**
+     * URL base.
+     */
     private static final String API_URL = "https://private-38cccd-amigosocial.apiary-mock.com/";
-    protected static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private String servicoUrl;
 
-    public Conexao(String servico){
-        this.servicoUrl = API_URL + servico;
-    }
+    /**
+     * Media Type do conteúdo dos requests.
+     */
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public void postRequisicao() {
+    public void post(String urlService, String content, ParserResonse parserResonse) {
         OkHttpClient cliente = new OkHttpClient();
-        RequestBody parametros = RequestBody.create(JSON, getParametros());
+        RequestBody parametros = RequestBody.create(JSON, content);
         Request requisicao = new Request.Builder()
-                .url(this.servicoUrl)
+                .url(Conexao.concatUrl(urlService))
                 .post(parametros)
                 .build();
-
-        cliente.newCall(requisicao).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call chamada, IOException erro) {
-                EventBus.getDefault().post(new SemConexaoException("Verifique sua conexão"));
-            }
-
-            @Override
-            public void onResponse(Call chamada, Response resposta) throws IOException {
-                parseResposta(resposta);
-            }
-        });
+        Conexao.requestTratament(cliente, requisicao, parserResonse);
     }
-    public void getRequisicao() {
+
+    public void put(String urlService, String content, ParserResonse parserResonse) {
+        OkHttpClient cliente = new OkHttpClient();
+        RequestBody parametros = RequestBody.create(JSON, content);
+        Request requisicao = new Request.Builder()
+                .url(Conexao.concatUrl(urlService))
+                .put(parametros)
+                .build();
+        Conexao.requestTratament(cliente, requisicao, parserResonse);
+    }
+
+    public static void get(String urlService, ParserResonse parserResonse) {
         OkHttpClient cliente = new OkHttpClient();
         Request requisicao = new Request.Builder()
-                .url(this.servicoUrl)
+                .url(Conexao.concatUrl(urlService))
                 .get()
                 .build();
-
-        cliente.newCall(requisicao).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call chamada, IOException erro) {
-                EventBus.getDefault().post(new SemConexaoException("Verifique sua conexão"));
-            }
-
-            @Override
-            public void onResponse(Call chamada, Response resposta) throws IOException {
-                parseResposta(resposta);
-            }
-        });
+        Conexao.requestTratament(cliente, requisicao, parserResonse);
     }
-    abstract String getParametros();
-    abstract void parseResposta(Response resposta);
 
+    public static void delete(String urlService, ParserResonse parserResonse) {
+        OkHttpClient cliente = new OkHttpClient();
+        Request requisicao = new Request.Builder()
+                .url(Conexao.concatUrl(urlService))
+                .delete()
+                .build();
+        Conexao.requestTratament(cliente, requisicao, parserResonse);
+    }
 
     /**
      * @param resposta - Response para retirar o body e realizar o parse.
      */
-    static <T> T parseRespostaObject(Response resposta, Class<T> clazz) throws IOException {
+    public static <T> T parseRespostaObject(Response resposta, Class<T> clazz) throws IOException {
         String json = resposta.body().string();
         Gson gson = new GsonBuilder().create();
 
@@ -92,7 +88,7 @@ public abstract class Conexao {
     /**
      * @param resposta - Response para retirar o body e realizar o parse.
      */
-    static <T> List<T> parseRespostaList(Response resposta, Class<T[]> clazz) throws IOException {
+    public static <T> List<T> parseRespostaList(Response resposta, Class<T[]> clazz) throws IOException {
         String json = resposta.body().string();
         Gson gson = new GsonBuilder().create();
 
@@ -100,4 +96,29 @@ public abstract class Conexao {
         return Arrays.asList(array);
     }
 
+    /**
+     * Interface anonima para passar implementação do parser para
+     * cada respectivo objeto.
+     */
+    public static interface ParserResonse {
+        void parse(Response r);
+    }
+
+    private static void requestTratament(OkHttpClient cliente, Request request, final ParserResonse parserResonse) {
+        cliente.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call chamada, IOException erro) {
+                EventBus.getDefault().post(new SemConexaoException("Verifique sua conexão"));
+            }
+
+            @Override
+            public void onResponse(Call chamada, Response resposta) throws IOException {
+                parserResonse.parse(resposta);
+            }
+        });
+    }
+
+    private static String concatUrl(String urlService) {
+        return API_URL + urlService;
+    }
 }
