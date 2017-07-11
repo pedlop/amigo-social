@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,10 +18,16 @@ import com.squareup.picasso.Picasso;
 
 import br.ufg.inf.amigosocial.dominio.Postagem;
 
+/**
+ * @author Pedro Victor
+ * @author Rony Nogueira
+ * @version 1.0
+ */
 public class DetalhePostagemActivity extends BaseActivity {
 
     private Postagem postagem;
     private Toolbar toolbar;
+    private MenuItem menuFavorito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +99,17 @@ public class DetalhePostagemActivity extends BaseActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Preenche a opcao favorito; Aqui adiciona itens à barra de ação se estiver presente.
-        getMenuInflater().inflate(R.menu.favorito_option, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.favorito_option, menu);
+        menuFavorito = menu.findItem(R.id.action_favoritos);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_favoritos) {
+            menuFavorito.setIcon(R.mipmap.ic_favoritos);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

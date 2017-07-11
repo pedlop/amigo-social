@@ -45,7 +45,7 @@ public class ConfiguracoesActivity extends BaseActivity implements CompoundButto
 
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationIcon(R.mipmap.ic_noticias);
+        toolbar.setNavigationIcon(R.mipmap.ic_voltar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
