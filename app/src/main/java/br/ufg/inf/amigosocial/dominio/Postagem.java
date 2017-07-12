@@ -33,6 +33,8 @@ public class Postagem implements Serializable {
     private Midia midia;
     @SerializedName("instituicao")
     private Instituicao instituicao;
+    @SerializedName("favorito_count")
+    private int favorito;
 
     Postagem() {}
 
@@ -134,4 +136,11 @@ public class Postagem implements Serializable {
 
     }
 
+    public int getFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(int favorito) {
+        this.favorito = favorito;
+    }
 }

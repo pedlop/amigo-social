@@ -1,22 +1,40 @@
 package br.ufg.inf.amigosocial;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import br.ufg.inf.amigosocial.conexao.Conexao;
 import br.ufg.inf.amigosocial.dominio.Postagem;
+import br.ufg.inf.amigosocial.util.AppConstantes;
+import br.ufg.inf.amigosocial.util.PreferenciasApp;
+import okhttp3.Response;
 
 /**
  * @author Pedro Victor
@@ -27,11 +45,13 @@ public class DetalhePostagemActivity extends BaseActivity {
 
     private Postagem postagem;
     private Toolbar toolbar;
-    private MenuItem menuFavorito;
+    private Menu menu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_detalhe_postagem);
         toolbar = (Toolbar) findViewById(R.id.toolbar_detalhe);
 
@@ -101,15 +121,102 @@ public class DetalhePostagemActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.favorito_option, menu);
-        menuFavorito = menu.findItem(R.id.action_favoritos);
+        this.menu = menu;
+        if (postagem.getFavorito() >= 1) {
+            this.menu.getItem(0).setIcon(R.mipmap.ic_favoritos);
+        } else {
+            this.menu.getItem(0).setIcon(R.mipmap.ic_favoritos_vazio);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_favoritos) {
-            menuFavorito.setIcon(R.mipmap.ic_favoritos);
+            if (postagem.getFavorito() == 1) {
+                removeFavorito();
+            } else {
+                adicionaFavorito();
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void adicionaFavorito() {
+        String email = PreferenciasApp.getPreferencia(this, AppConstantes.FAVORITOS_EMAIL.getChave(),"");
+        if (!email.equals("")) {
+            String url = "favorito";
+            Map<String, String> params = new HashMap<>();
+            params.put("postagem_id", postagem.getId() + "");
+            params.put("email", email);
+            Gson gson = new GsonBuilder().create();
+            String parametros = gson.toJson(params);
+            Conexao.post(url, parametros , new Conexao.ParserResponse() {
+                @Override
+                public void parse(Response r) {
+                    AppConstantes resposta = r.isSuccessful() ? AppConstantes.FAVORITO_ADICIONADO_SUCESSO : AppConstantes.FAVORITO_ADICIONADO_FALHA;
+                    EventBus.getDefault().post(resposta);
+                    EventBus.getDefault().post(AppConstantes.FAVORITOS_ATUALIZADOS);
+                }
+            });
+        } else {
+
+            final EditText input = new EditText(this);
+            input.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+            dialogo.setTitle(getString(R.string.texto_informe_email));
+            dialogo.setView(input);
+            dialogo.setPositiveButton(R.string.texto_salvar, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String emailInput = input.getText().toString().trim();
+                    if (emailInput.length() > 0) {
+                        PreferenciasApp.setPreferencia(DetalhePostagemActivity.this, AppConstantes.FAVORITOS_EMAIL.getChave(), emailInput );
+                        adicionaFavorito();
+                    } else {
+                        Toast.makeText(DetalhePostagemActivity.this, getString(R.string.texto_informe_email_erro), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            dialogo.setNegativeButton(R.string.texto_cancelar, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alertDialog = dialogo.create();
+            alertDialog.show();
+        }
+    }
+    private void removeFavorito() {
+        String url = "favorito/" + postagem.getId();
+        Conexao.delete(url, new Conexao.ParserResponse() {
+            @Override
+            public void parse(Response r) {
+                AppConstantes resposta = r.isSuccessful() ? AppConstantes.FAVORITO_REMOVIDO_SUCESSO : AppConstantes.FAVORITO_REMOVIDO_FALHA;
+                EventBus.getDefault().post(resposta);
+            }
+        });
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(AppConstantes resposta) {
+        int mensagem = R.string.erro_desconhecido;
+        if (resposta.getChave().equals(AppConstantes.FAVORITO_ADICIONADO_SUCESSO.getChave())) {
+            mensagem = R.string.texto_favorito_sucesso;
+            this.menu.getItem(0).setIcon(R.mipmap.ic_favoritos);
+            postagem.setFavorito(1);
+        } else if(resposta.getChave().equals(AppConstantes.FAVORITO_ADICIONADO_FALHA.getChave())) {
+            mensagem = R.string.texto_favorito_falha;
+        } else if (resposta.getChave().equals(AppConstantes.FAVORITO_REMOVIDO_SUCESSO.getChave())) {
+            this.menu.getItem(0).setIcon(R.mipmap.ic_favoritos_vazio);
+            mensagem = R.string.texto_favorito_removido_sucesso;
+            postagem.setFavorito(0);
+        } else if (resposta.getChave().equals(AppConstantes.FAVORITO_REMOVIDO_FALHA.getChave())) {
+            mensagem = R.string.texto_favorito_removido_falha;
+        }
+
+        Toast.makeText(this, getString(mensagem), Toast.LENGTH_SHORT).show();
     }
 
 }

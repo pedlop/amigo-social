@@ -9,6 +9,12 @@ public enum AppConstantes {
     NOTICIAS_CARREGAMENTO_COMPLETO("noticias_carregamento_completo"),
     POSTAGENS_CARREGAMENTO_COMPLETO("postagens_carregamento_completo"),
     FAVORITOS_CARREGAMENTO_COMPLETO("favoritos_carragamento_completo"),
+    FAVORITOS_EMAIL("favoritos_email"),
+    FAVORITO_ADICIONADO_SUCESSO("add_favorito_sucesso"),
+    FAVORITO_ADICIONADO_FALHA("add_favorito_falha"),
+    FAVORITO_REMOVIDO_SUCESSO("rm_favorito_sucesso"),
+    FAVORITO_REMOVIDO_FALHA("rm_favorito_falha"),
+    FAVORITOS_ATUALIZADOS("favoritos_atualizados"),
     /**
      * CHAVE DA OPÇÃO DE NOTÍCIAS SOBRE EDUCAÇÃO.
      */

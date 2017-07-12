@@ -30,4 +30,13 @@
     <string name="texto_localizacao_nao_encontrada">Localização não informada.</string>
     <string name="texto_como_ajudar">Como Ajudar</string>
     <string name="texto_instituicao">Instituição</string>
+    <string name="texto_favorito_sucesso">Adicionado aos favoritos</string>
+    <string name="texto_favorito_falha">Falha ao adicionar aos favoritos</string>
+    <string name="texto_informe_email">Informe seu e-mail</string>
+    <string name="texto_salvar">Salvar</string>
+    <string name="texto_cancelar">Cancelar</string>
+    <string name="texto_informe_email_erro">Você deve informar um e-mail</string>
+    <string name="texto_favorito_removido_sucesso">Favorito removido com sucesso.</string>
+    <string name="texto_favorito_removido_falha">Não foi possível remover o favorito</string>
+    <string name="erro_desconhecido">Erro desconhecido</string>
 </resources>
