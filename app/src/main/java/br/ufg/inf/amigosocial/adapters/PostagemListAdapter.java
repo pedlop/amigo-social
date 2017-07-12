@@ -44,7 +44,6 @@ public class PostagemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         postagemViewHolder.getTitulo().setText(postagem.getTitulo());
 
         if (postagem.getMidia().getArquivo() != null) {
-            Log.d("TAG", postagem.getMidia().getArquivo() + " VAZIA ");
             Picasso.with(this.context).load(postagem.getMidia().getArquivo()).error(R.mipmap.ic_launcher).into(postagemViewHolder.getImagem());
         } else {
         postagemViewHolder.getImagem().setVisibility(View.GONE);
