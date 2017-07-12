@@ -64,7 +64,7 @@ public class InicioFragment extends BaseFragment {
     }
 
     private void getPostagens() {
-        Conexao.get("postagem", new Conexao.ParserResonse() {
+        Conexao.get("postagem", new Conexao.ParserResponse() {
             @Override
             public void parse(Response r) {
                 try {

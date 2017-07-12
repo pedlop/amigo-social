@@ -66,7 +66,7 @@ public class NoticiasFragment extends BaseFragment {
 
     private void getNoticias() {
         mProgressBar.setVisibility(View.VISIBLE);
-        Conexao.get("noticia", new Conexao.ParserResonse() {
+        Conexao.get("noticia", new Conexao.ParserResponse() {
             @Override
             public void parse(Response r) {
                 try {

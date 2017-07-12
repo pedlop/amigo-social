@@ -91,7 +91,7 @@ public class FavoritosFragment extends BaseFragment {
 
     private void getFavoritos() {
         mProgressBar.setVisibility(View.VISIBLE);
-        Conexao.get("favoritos", new Conexao.ParserResonse() {
+        Conexao.get("favoritos", new Conexao.ParserResponse() {
             @Override
             public void parse(Response r) {
                 try {
