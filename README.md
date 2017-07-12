@@ -49,6 +49,8 @@ Para os membros participantes do projeto que têm permissão, siga para [editar 
 
 Documentação disponibilizada em [Javadoc](http://amigosocial.uphero.com/docs/).
 
+Documentação disponibilizada no [Apiary](http://docs.amigosocial.apiary.io/).
+
 ## **Acompanhamento das Atividades do Projeto** ##
 Para acompanhar as atividades (issues) a serem realizadas ao longo do projeto, basta ir na aba [Projects](https://github.com/pedlop/amigo-social/projects).
 
