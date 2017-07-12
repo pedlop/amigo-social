@@ -37,42 +37,43 @@ public abstract class Conexao {
      */
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public void post(String urlService, String content, ParserResonse parserResonse) {
+    public static void post(String urlService, String content, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         RequestBody parametros = RequestBody.create(JSON, content);
         Request requisicao = new Request.Builder()
                 .url(Conexao.concatUrl(urlService))
+                .method("POST", RequestBody.create(null, new byte[0]))
                 .post(parametros)
                 .build();
-        Conexao.requestTratament(cliente, requisicao, parserResonse);
+        Conexao.requestTratament(cliente, requisicao, parserResponse);
     }
 
-    public void put(String urlService, String content, ParserResonse parserResonse) {
+    public static void put(String urlService, String content, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         RequestBody parametros = RequestBody.create(JSON, content);
         Request requisicao = new Request.Builder()
                 .url(Conexao.concatUrl(urlService))
                 .put(parametros)
                 .build();
-        Conexao.requestTratament(cliente, requisicao, parserResonse);
+        Conexao.requestTratament(cliente, requisicao, parserResponse);
     }
 
-    public static void get(String urlService, ParserResonse parserResonse) {
+    public static void get(String urlService, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         Request requisicao = new Request.Builder()
                 .url(Conexao.concatUrl(urlService))
                 .get()
                 .build();
-        Conexao.requestTratament(cliente, requisicao, parserResonse);
+        Conexao.requestTratament(cliente, requisicao, parserResponse);
     }
 
-    public static void delete(String urlService, ParserResonse parserResonse) {
+    public static void delete(String urlService, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         Request requisicao = new Request.Builder()
                 .url(Conexao.concatUrl(urlService))
                 .delete()
                 .build();
-        Conexao.requestTratament(cliente, requisicao, parserResonse);
+        Conexao.requestTratament(cliente, requisicao, parserResponse);
     }
 
     /**
@@ -100,11 +101,11 @@ public abstract class Conexao {
      * Interface anonima para passar implementação do parser para
      * cada respectivo objeto.
      */
-    public static interface ParserResonse {
+    public static interface ParserResponse {
         void parse(Response r);
     }
 
-    private static void requestTratament(OkHttpClient cliente, Request request, final ParserResonse parserResonse) {
+    private static void requestTratament(OkHttpClient cliente, Request request, final ParserResponse parserResponse) {
         cliente.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call chamada, IOException erro) {
@@ -113,7 +114,7 @@ public abstract class Conexao {
 
             @Override
             public void onResponse(Call chamada, Response resposta) throws IOException {
-                parserResonse.parse(resposta);
+                parserResponse.parse(resposta);
             }
         });
     }
