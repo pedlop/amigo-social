@@ -1,9 +1,8 @@
 package br.ufg.inf.amigosocial.conexao;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
@@ -30,13 +29,19 @@ public abstract class Conexao {
     /**
      * URL base.
      */
-    private static final String API_URL = "https://private-38cccd-amigosocial.apiary-mock.com/";
+    private static final String API_URL = "http://private-38cccd-amigosocial.apiary-mock.com/";
 
     /**
      * Media Type do conteúdo dos requests.
      */
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+    /**
+     * Realiza uma requisição do tipo POST
+     * @param urlService URL do serviço
+     * @param content Dados do body
+     * @param parserResponse Responsável por interpretar a resposta
+     */
     public static void post(String urlService, String content, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         RequestBody parametros = RequestBody.create(JSON, content);
@@ -48,6 +53,12 @@ public abstract class Conexao {
         Conexao.requestTratament(cliente, requisicao, parserResponse);
     }
 
+    /**
+     * Realiza uma requisição do tipo PUT
+     * @param urlService URL do serviço
+     * @param content Dados do body
+     * @param parserResponse Responsável por interpretar a resposta
+     */
     public static void put(String urlService, String content, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         RequestBody parametros = RequestBody.create(JSON, content);
@@ -57,7 +68,11 @@ public abstract class Conexao {
                 .build();
         Conexao.requestTratament(cliente, requisicao, parserResponse);
     }
-
+    /**
+     * Realiza uma requisição do tipo GET
+     * @param urlService URL do serviço
+     * @param parserResponse Responsável por interpretar a resposta
+     */
     public static void get(String urlService, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         Request requisicao = new Request.Builder()
@@ -66,7 +81,11 @@ public abstract class Conexao {
                 .build();
         Conexao.requestTratament(cliente, requisicao, parserResponse);
     }
-
+    /**
+     * Realiza uma requisição do tipo DELETE
+     * @param urlService URL do serviço
+     * @param parserResponse Responsável por interpretar a resposta
+     */
     public static void delete(String urlService, ParserResponse parserResponse) {
         OkHttpClient cliente = new OkHttpClient();
         Request requisicao = new Request.Builder()
@@ -105,6 +124,12 @@ public abstract class Conexao {
         void parse(Response r);
     }
 
+    /**
+     * Realiza o tratamento da resposta recebida pelo Webservice
+     * @param cliente Cliente HTTP
+     * @param request Request
+     * @param parserResponse Parser da Resposta
+     */
     private static void requestTratament(OkHttpClient cliente, Request request, final ParserResponse parserResponse) {
         cliente.newCall(request).enqueue(new Callback() {
             @Override
@@ -119,6 +144,11 @@ public abstract class Conexao {
         });
     }
 
+    /**
+     * Realiza a construção da URL para consulta ao serviço
+     * @param urlService nome do serviço
+     * @return String
+     */
     private static String concatUrl(String urlService) {
         return API_URL + urlService;
     }

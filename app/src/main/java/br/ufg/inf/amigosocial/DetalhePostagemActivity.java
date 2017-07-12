@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -117,22 +116,22 @@ public class DetalhePostagemActivity extends BaseActivity {
         instituicaoDescricao.setText(postagem.getInstituicao().getDescricao());
         instituicaoEndereco.setText(postagem.getInstituicao().getEndereco());
     }
-
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.favorito_option, menu);
         this.menu = menu;
-        if (postagem.getFavorito() >= 1) {
+        if (postagem.getFavorito() > 0) {
             this.menu.getItem(0).setIcon(R.mipmap.ic_favoritos);
         } else {
             this.menu.getItem(0).setIcon(R.mipmap.ic_favoritos_vazio);
         }
         return super.onCreateOptionsMenu(menu);
     }
-
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_favoritos) {
-            if (postagem.getFavorito() == 1) {
+            if (postagem.getFavorito() > 0) {
                 removeFavorito();
             } else {
                 adicionaFavorito();
@@ -141,6 +140,9 @@ public class DetalhePostagemActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Adiciona a postagem como favorito do usuário, caso não possua email cadastrado é solicitado o cadastro do email
+     */
     private void adicionaFavorito() {
         String email = PreferenciasApp.getPreferencia(this, AppConstantes.FAVORITOS_EMAIL.getChave(),"");
         if (!email.equals("")) {
@@ -189,8 +191,12 @@ public class DetalhePostagemActivity extends BaseActivity {
             alertDialog.show();
         }
     }
+
+    /**
+     * Remove a postagem da lista de favoritos do usuário
+     */
     private void removeFavorito() {
-        String url = "favorito/" + postagem.getId();
+        String url = "favorito/" + postagem.getFavorito();
         Conexao.delete(url, new Conexao.ParserResponse() {
             @Override
             public void parse(Response r) {
@@ -199,9 +205,15 @@ public class DetalhePostagemActivity extends BaseActivity {
             }
         });
     }
+
+    /**
+     * Exibe um Toast com o resultado da ação do usuário
+     * @see Toast
+     * @param resposta AppConstantes
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(AppConstantes resposta) {
-        int mensagem = R.string.erro_desconhecido;
+        int mensagem = 0;
         if (resposta.getChave().equals(AppConstantes.FAVORITO_ADICIONADO_SUCESSO.getChave())) {
             mensagem = R.string.texto_favorito_sucesso;
             this.menu.getItem(0).setIcon(R.mipmap.ic_favoritos);
@@ -215,8 +227,8 @@ public class DetalhePostagemActivity extends BaseActivity {
         } else if (resposta.getChave().equals(AppConstantes.FAVORITO_REMOVIDO_FALHA.getChave())) {
             mensagem = R.string.texto_favorito_removido_falha;
         }
-
-        Toast.makeText(this, getString(mensagem), Toast.LENGTH_SHORT).show();
+        if (mensagem != 0)
+            Toast.makeText(this, getString(mensagem), Toast.LENGTH_SHORT).show();
     }
 
 }
