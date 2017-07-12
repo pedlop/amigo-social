@@ -1,4 +1,4 @@
-# Amigo Social - Um Projeto Android por uma 'Cidade Inteligente'
+# Amigo Social - Um Projeto Android por uma Cidade Inteligente
 
 ## **Instituto de Informática - Universidade Federal de Goiás - DSDM 2017/1** ##
 
@@ -72,16 +72,16 @@ Para acompanhar as atividades (issues) a serem realizadas ao longo do projeto, b
 >* [Siga estes passos](https://blog.da2k.com.br/2015/02/04/git-e-github-do-clone-ao-pull-request/) caso queira realizar a integração pelo cmd (linha de comando).
 
 #### **Após integrar o projeto com o Andoid Studio:** ####
-**Criando uma Issue:**
+**_Criando uma Issue:_**
 >* É necessário que você descreva claramente as etapas necessárias para reproduzir a issue (problema encontrado no projeto) em que você está executando.
 >* A lista de **Issues** deste repositório é exclusivamente para relatórios de erros e solicitações de recursos (novas funcionalidades). As questões não conformes serão fechadas.
 >* Se você acha que encontrou um erro ou teve uma nova ideia de recurso, comece por ter certeza de que ele ainda não foi informado. Você pode pesquisar pelas _issues_ existentes para verificar se existe um relatório semelhante. Inclua _issues_ fechadas, pois pode ter sido fechado com uma solução.
 >* Em seguida, [crie uma nova _issue_](https://github.com/pedlop/amigo-social/issues) que explique completamente o problema. Preencha o formulário de issue antes de enviá-la.
 
-**Criando um Pull Request:**
+**_Criando um Pull Request:_**
 >* [Siga estes passos](https://blog.da2k.com.br/2015/02/04/git-e-github-do-clone-ao-pull-request/) caso queira realizar a integração pelo cmd (linha de comando).
 
-**Formato da mensagem do Commit:**
+**_Formato da mensagem do Commit:_**
 >`tipo (escopo): assunto`
 >* `Tipo`
 >	* `recurso` : um novo recurso (funcionalidade)
@@ -89,12 +89,10 @@ Para acompanhar as atividades (issues) a serem realizadas ao longo do projeto, b
 >	* `desempenho` : uma mudança de código que melhora o desempenho
 >	* `teste` : adicionando testes em falta
 >* `Escopo`
->	* 
-O escopo pode ser qualquer coisa especificando o local da mudança de confirmação.
+>	* O escopo pode ser qualquer coisa especificando o local da mudança de confirmação.
 >	* Exemplo: `(favoritos)`, `(postagens)`, `(notícias)` ou `(configurações)` e caso seja criado nova funcionalidade, especificando o nome dela, como `(login)`.
 >* `Assunto`
->	* 
-O assunto contém descrição sucinta da alteração:
+>	* O assunto contém descrição sucinta da alteração:
 >		* Use o tempo presente e imperativo: "muda", não "mudou" e nem "mudanças".
 >		* Inicie sempre com letras minúsculas.
 >		* Não coloque um ponto '.' no fim da mensagem.
